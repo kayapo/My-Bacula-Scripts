@@ -11,7 +11,7 @@ MYD="/usr/bin/mysqldump"
 case "$1" in
         pre)
                 `${MYA} --defaults-extra-file=${EXTRAFILE} ping | grep -q '^mysqld is alive$'`
-                [ "$?" == "0" ] && ${MYC} --defaults-extra-file=${EXTRAFILE} -BN -e "show databases;" | grep -v 'test\|lost+found\|information_schema\|msgindex' | while read db
+                [ "$?" == "0" ] && ${MYC} --defaults-extra-file=${EXTRAFILE} -BN -e "show databases;" | grep -v 'test\|lost+found\|information_schema\|performance_schema\|mysql' | while read db
                         do
                         # echo "Backup $db @ `date -R`"
                         [ -d "${BCKDIR}/${db}" ] || mkdir -m u=rwX,g=rwX,o=rX,g+s -p "${BCKDIR}/${db}"
